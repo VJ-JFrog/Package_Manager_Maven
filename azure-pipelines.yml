@@ -31,7 +31,7 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     allowFailBuild: true
-    vuln: true
+    vuln: false
 - task: JFrogPublishBuildInfo@1
   inputs:
     artifactoryConnection: 'vaibhavj-cnn'
