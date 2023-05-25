@@ -25,6 +25,13 @@ steps:
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
     javaHomeOption: 'JDKVersion'
+- task: JFrogBuildScan@1
+  inputs:
+    xrayConnection: 'vaibhavj-xray'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    allowFailBuild: true
+    vuln: true
 - task: JFrogPublishBuildInfo@1
   inputs:
     artifactoryConnection: 'vaibhavj-cnn'
