@@ -13,7 +13,6 @@ steps:
 variables:
 - name: conn
   value: https://amithmutak.jfrog.io/artifactory
-steps:
   - script: |
       echo ${{ variables.conn }} # outputs initialValue
       echo $(conn)
