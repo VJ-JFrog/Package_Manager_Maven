@@ -14,7 +14,7 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'install'
-    artifactoryResolverService: 'vaibhavj-cnn'
+    artifactoryResolverService: '$(vaibhavj-cnn)'
     targetResolveReleaseRepo: 'vj-libs-release'
     targetResolveSnapshotRepo: 'vj-libs-snapshot'
     artifactoryDeployService: 'vaibhavj-cnn'
@@ -34,6 +34,6 @@ steps:
     vuln: true
 - task: JFrogPublishBuildInfo@1
   inputs:
-    artifactoryConnection: 'vaibhavj-cnn'
+    artifactoryConnection: '$(vaibhavj-cnn)'
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
