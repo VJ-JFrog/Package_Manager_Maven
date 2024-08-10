@@ -1,5 +1,4 @@
 # Starter pipeline
-
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -11,32 +10,20 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: JFrogMaven@1
+- task: JFrogGenericArtifacts@1
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'install'
-    artifactoryResolverService: 'Artifactory-vj'
-    targetResolveReleaseRepo: 'vj-libs-release'
-    targetResolveSnapshotRepo: 'vj-libs-snapshot'
-    artifactoryDeployService: 'Artifactory-vj'
-    targetDeployReleaseRepo: 'vj-libs-release-local'
-    targetDeploySnapshotRepo: 'vj-libs-snapshot-local'
-    collectBuildInfo: true
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    includeEnvVars: true
-    javaHomeOption: 'JDKVersion'
-- task: JFrogPublishBuildInfo@1
-  inputs:
-    artifactoryConnection: 'Artifactory-vj'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-
-- task: JFrogBuildScan@1
-  inputs:
-    xrayConnection: 'vj-xray'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    allowFailBuild: true
-    vuln: false
+    command: 'Copy'
+    connection: 'Artifactory-vj'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern": "test-generic-local/upload-folder/file8.txt",
+            "target": "test11-generic-local/file8.txt"
+          }
+        ]
+      }
+    dryRun: true
+    failNoOp: true
 
