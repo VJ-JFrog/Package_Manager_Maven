@@ -10,26 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: JFrogMaven@1
+- task: JFrogGradle@1
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'install'
+    gradleBuildFile: 'build.gradle'
+    workDir: 'gradle-examples/gradle-example/'
+    tasks: 'artifactoryPublish'
     artifactoryResolverService: 'vaibhavj-cnn'
-    targetResolveReleaseRepo: 'vj-libs-release'
-    targetResolveSnapshotRepo: 'vj-libs-snapshot'
-    artifactoryDeployService: 'vaibhavj-cnn'
-    targetDeployReleaseRepo: 'vj-libs-release-local'
-    targetDeploySnapshotRepo: 'vj-libs-snapshot-local'
+    sourceRepo: 'vdsk-gradle-release'
+    artifactoryDeployerService: 'vaibhavj-cnn'
+    targetRepo: 'dinesh-gradle-local'
     javaHomeOption: 'JDKVersion'
-- task: JFrogPublishBuildInfo@1
-  inputs:
-    artifactoryConnection: 'vaibhavj-cnn'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-- task: JFrogBuildScan@1
-  inputs:
-    xrayConnection: 'vaibhavj-xray'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    allowFailBuild: true
-    vuln: true
